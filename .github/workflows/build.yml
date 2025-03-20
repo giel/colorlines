@@ -1,0 +1,54 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: build
+
+on: push
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # release changes require contents write
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Git describe
+      id: ghd
+      uses: proudust/gh-describe@v1
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '1.23.x'
+
+    - name: Check outputs
+      run: |
+        echo "describe: ${{ steps.ghd.outputs.describe }}"
+        echo "tag     : ${{ steps.ghd.outputs.tag }}"
+        echo "distance: ${{ steps.ghd.outputs.distance }}"
+        echo "sha     : ${{ steps.ghd.outputs.sha }}"
+
+    - name: Build
+      env:
+          version: ${{ steps.ghd.outputs.describe }}
+          # version: 4.5.6
+
+      run: ./build.sh
+
+    - name: "Build linux and MacOS"
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+          version: ${{ steps.ghd.outputs.describe }}
+      run: |
+        ./build_linux-amd64.sh
+        ./build_macOS-amd64.sh
+        ./build_macOS-arm64.sh
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          *.tar.gz

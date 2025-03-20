@@ -47,14 +47,14 @@ func GetConfig() *Config {
 	colorsFlag := flag.Int("colors", 6, "Number of colors per line")
 	linesFlag := flag.Int("lines", 1, "Number of lines to display")
 	pieceSizeFlag := flag.Int("piece_size", 5, "Number of characters per piece")
-	shapeFlag := flag.String("shape", "blocks", "Use 'blocks' or 'chars' characters to display")
+	shapeFlag := flag.String("shape", "blocks", "Use 'blocks', 'chars' or 'smileys' characters to display")
 	versionFlag := flag.Bool("version", false, "Display the version of the program")
 
 	flag.Parse()
 
 	// Handle the --version flag
 	if *versionFlag {
-		fmt.Printf("colorlines version %s\n", Version)
+		fmt.Printf("%s version %s\n", AppName, Version)
 		os.Exit(0)
 	}
 
@@ -80,6 +80,9 @@ func GetConfig() *Config {
 	config.Shape = "blocks"
 	if *shapeFlag == "chars" {
 		config.Shape = "chars"
+	}
+	if *shapeFlag == "smileys" {
+		config.Shape = "smileys"
 	}
 	return config
 }

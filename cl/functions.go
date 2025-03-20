@@ -41,6 +41,15 @@ func randomBlock() string {
 	return blockChars[rand.Intn(len(blockChars))]
 }
 
+// Generate a random smiley character
+func randomSmiley() string {
+	blockChars := []string{
+		"😀", "😃", "😄", "😁", // Smiling faces
+		"😅", "😂", "🤣", "🥲", // Tear faces
+	}
+	return blockChars[rand.Intn(len(blockChars))]
+}
+
 // Display random colored block
 func DisplayRandomColoredBlocks(numColors int, numLines int, pieceSize int, shape string) {
 	var char1 string
@@ -52,6 +61,9 @@ func DisplayRandomColoredBlocks(numColors int, numLines int, pieceSize int, shap
 			}
 			if shape == "chars" {
 				char1 = randomChar() // Use a regular character
+			}
+			if shape == "smileys" {
+				char1 = randomSmiley() // Use a smiley character
 			}
 			fmt.Printf("%s%s%s", color, strings.Repeat(char1, pieceSize), reset)
 		}
