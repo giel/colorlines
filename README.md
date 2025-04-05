@@ -14,8 +14,9 @@ go mod tidy
 
 Tag the version
 
-    git tag -a v0.1.0 -m "First release"
-    git push origin v0.1.0
+    git tag --list
+    git tag -a 0.1.0 -m "First release"
+    git push origin 0.1.0
 
 ## Usage
 
@@ -54,4 +55,4 @@ If the `-save_config` flag is used, the configuration will be saved to the file.
 
     colorlines -lines 1 -save_config
 
-Note that bot single `-` as double `--` are accepted.
+Note that both single `-` as double `--` are accepted.
