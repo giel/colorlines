@@ -11,6 +11,7 @@ import (
 var AppName = "colorlines"
 var Version = "not set" // will be set by build.sh
 var ConfigPath = "$HOME/.config/colorlines/config.json"
+var SaveConfig = false
 
 // Config structure for the program
 type Config struct {
@@ -18,7 +19,6 @@ type Config struct {
 	Lines      int    `json:"lines"`
 	PieceSize  int    `json:"piece_size"`
 	Shape      string `json:"shape"`
-	SaveConfig bool   `json:"save_config"`
 }
 
 // write config to file
@@ -47,7 +47,6 @@ func loadConfig(filePath string) (*Config, error) {
 		Lines:      2,
 		PieceSize:  5,
 		Shape:      "blocks",
-		SaveConfig: false,
 	}
 
 	// Check if the configuration file exists
@@ -111,7 +110,7 @@ func GetConfig() *Config {
 			config.Shape = *shapeFlag
 		}
 		if f.Name == "save_config" {
-			config.SaveConfig = *saveConfigFlag
+			SaveConfig = *saveConfigFlag
 		}
 	})
 

@@ -38,7 +38,7 @@ The program will display random generated colored characters on the terminal usi
 If a config file `$HOME/.config/colorlines/config.json` exists, it will be used to read the values. 
 The commandline parameters will always overrule the values from the configuration file.
 
-If the `-save_config` flag is used, the configuration will be saved to the file. That way you can use colorlines without parameters the next time and get the same configuration. Note that the `-save_config` will always be saved as `false` to avoid constantly saving the configuration.
+If the `-save_config` flag is used, the configuration will be saved to the file. That way you can use colorlines without parameters the next time and get the same configuration.
 
 ## Examples
 
@@ -54,3 +54,4 @@ If the `-save_config` flag is used, the configuration will be saved to the file.
 
     colorlines -lines 1 -save_config
 
+Note that bot single `-` as double `--` are accepted.
